@@ -128,7 +128,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTextPane" name="jTextPane1">
+        <Component class="javax.swing.JTextPane" name="txt_UsuarioTxt">
           <Properties>
             <Property name="autoscrolls" type="boolean" value="false"/>
             <Property name="opaque" type="boolean" value="false"/>
@@ -145,6 +145,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Login"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_LogarActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

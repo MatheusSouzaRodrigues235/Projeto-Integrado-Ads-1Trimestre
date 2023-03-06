@@ -6,7 +6,7 @@ package br.com.PiHerosGames.Telas;
 
 import java.sql.*;
 import br.com.PiHerosGames.conexao.ModuloConexao;
-
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -17,6 +17,28 @@ public class TelaLogin extends javax.swing.JFrame {
     Connection conexao = null;
     PreparedStatement pst = null;
     ResultSet rs = null;
+
+    public void Logar() {
+        String sqlConsulta = "SELECT * FROM tb_usuarios WHERE login_usuario=? AND senha_usuario=?";
+        try {
+            // Preparam a consulta ao banco
+            pst = conexao.prepareStatement(sqlConsulta);
+            pst.setString(1, txt_UsuarioTxt.getText());
+            pst.setString(2, txt_Senha.getText());
+            //Executa a query 
+            rs = pst.executeQuery();
+            // Estrutura para verificar se existem dados
+            if (rs.next()) {
+                PaginaInicial principal = new PaginaInicial();
+                principal.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "Usuário e/ou senha inválido(s)");
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
 
     /**
      * Creates new form TelaLogin
@@ -47,7 +69,7 @@ public class TelaLogin extends javax.swing.JFrame {
         lblUsu = new javax.swing.JLabel();
         lbl_Pass = new javax.swing.JLabel();
         txt_Usuario = new javax.swing.JScrollPane();
-        jTextPane1 = new javax.swing.JTextPane();
+        txt_UsuarioTxt = new javax.swing.JTextPane();
         txt_Senha = new javax.swing.JPasswordField();
         btn_Logar = new javax.swing.JButton();
 
@@ -75,9 +97,9 @@ public class TelaLogin extends javax.swing.JFrame {
 
         lbl_Pass.setText("Senha:");
 
-        jTextPane1.setAutoscrolls(false);
-        jTextPane1.setOpaque(false);
-        txt_Usuario.setViewportView(jTextPane1);
+        txt_UsuarioTxt.setAutoscrolls(false);
+        txt_UsuarioTxt.setOpaque(false);
+        txt_Usuario.setViewportView(txt_UsuarioTxt);
 
         txt_Senha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -86,6 +108,11 @@ public class TelaLogin extends javax.swing.JFrame {
         });
 
         btn_Logar.setText("Login");
+        btn_Logar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_LogarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -142,6 +169,11 @@ public class TelaLogin extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_SenhaActionPerformed
 
+    private void btn_LogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_LogarActionPerformed
+        //Chama o método Logar() para realizar as verificações
+        Logar();
+    }//GEN-LAST:event_btn_LogarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -181,11 +213,11 @@ public class TelaLogin extends javax.swing.JFrame {
     private javax.swing.JButton btn_Logar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextPane jTextPane1;
     private javax.swing.JLabel lblStatus;
     private javax.swing.JLabel lblUsu;
     private javax.swing.JLabel lbl_Pass;
     private javax.swing.JPasswordField txt_Senha;
     private javax.swing.JScrollPane txt_Usuario;
+    private javax.swing.JTextPane txt_UsuarioTxt;
     // End of variables declaration//GEN-END:variables
 }
