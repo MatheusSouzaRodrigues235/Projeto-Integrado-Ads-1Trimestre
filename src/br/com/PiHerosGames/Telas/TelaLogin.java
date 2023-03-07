@@ -31,6 +31,8 @@ public class TelaLogin extends javax.swing.JFrame {
             if (rs.next()) {
                 PaginaInicial principal = new PaginaInicial();
                 principal.setVisible(true);
+                this.dispose();
+                conexao.close();
             } else {
                 JOptionPane.showMessageDialog(null, "Usuário e/ou senha inválido(s)");
             }

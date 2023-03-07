@@ -26,31 +26,151 @@ public class PaginaInicial extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btn_venda = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        btn_financeiro = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        btn_cadastro = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        btn_estoque = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        btn_sair = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(0, 0, 0));
 
-        jLabel1.setText("Olà Mundo");
+        btn_venda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/PiHerosGames/Icones/cart.png"))); // NOI18N
+        btn_venda.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        btn_venda.setMaximumSize(new java.awt.Dimension(55, 56));
+        btn_venda.setMinimumSize(new java.awt.Dimension(55, 56));
+        btn_venda.setPreferredSize(new java.awt.Dimension(55, 56));
+        btn_venda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_vendaActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
+        jLabel1.setText("Vendas");
+
+        btn_financeiro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/PiHerosGames/Icones/financeiro.png"))); // NOI18N
+        btn_financeiro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_financeiroActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
+        jLabel2.setText("Financeiro");
+
+        btn_cadastro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/PiHerosGames/Icones/cadastro.png"))); // NOI18N
+        btn_cadastro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_cadastroActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
+        jLabel3.setText("Cadastro");
+
+        btn_estoque.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/PiHerosGames/Icones/estoque.png"))); // NOI18N
+        btn_estoque.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_estoqueActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
+        jLabel4.setText("Estoque");
+
+        btn_sair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/PiHerosGames/Icones/sair.png"))); // NOI18N
+        btn_sair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_sairActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
+        jLabel5.setText("Sair");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(178, 178, 178)
-                .addComponent(jLabel1)
-                .addContainerGap(162, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(45, 45, 45)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btn_venda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addGap(50, 50, 50)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btn_cadastro)
+                    .addComponent(jLabel3))
+                .addGap(55, 55, 55)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btn_financeiro)
+                    .addComponent(jLabel2))
+                .addGap(45, 45, 45)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btn_estoque)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabel4)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 112, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btn_sair)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addGap(16, 16, 16)))
+                .addGap(16, 16, 16))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(126, 126, 126)
-                .addComponent(jLabel1)
-                .addContainerGap(158, Short.MAX_VALUE))
+                .addContainerGap(215, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btn_venda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_cadastro)
+                    .addComponent(btn_financeiro)
+                    .addComponent(btn_estoque)
+                    .addComponent(btn_sair))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1)
+                        .addComponent(jLabel3))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2)
+                        .addComponent(jLabel4))
+                    .addComponent(jLabel5))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_financeiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_financeiroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_financeiroActionPerformed
+
+    private void btn_cadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cadastroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_cadastroActionPerformed
+
+    private void btn_estoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_estoqueActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_estoqueActionPerformed
+
+    private void btn_sairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_sairActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_sairActionPerformed
+
+    private void btn_vendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_vendaActionPerformed
+        CadastroProdutos cad_Prod = new CadastroProdutos();
+        cad_Prod.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btn_vendaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -88,6 +208,15 @@ public class PaginaInicial extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_cadastro;
+    private javax.swing.JButton btn_estoque;
+    private javax.swing.JButton btn_financeiro;
+    private javax.swing.JButton btn_sair;
+    private javax.swing.JButton btn_venda;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     // End of variables declaration//GEN-END:variables
 }
