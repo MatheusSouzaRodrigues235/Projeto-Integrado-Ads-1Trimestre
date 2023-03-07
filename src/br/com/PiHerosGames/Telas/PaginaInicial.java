@@ -163,7 +163,7 @@ public class PaginaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_estoqueActionPerformed
 
     private void btn_sairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_sairActionPerformed
-        // TODO add your handling code here:
+      
     }//GEN-LAST:event_btn_sairActionPerformed
 
     private void btn_vendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_vendaActionPerformed
