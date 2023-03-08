@@ -3,8 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package br.com.PiHerosGames.Telas;
-
-/**
+import java.sql.*;
+import br.com.PiHerosGames.conexao.ModuloConexao;
+import javax.swing.JOptionPane;
+    /**
  *
  * @author eders
  */
@@ -15,8 +17,30 @@ public class CadastroProdutos extends javax.swing.JFrame {
      */
     public CadastroProdutos() {
         initComponents();
+        conexao = ModuloConexao.conector();
+       
+       
     }
-
+    
+    Connection conexao = null;
+    PreparedStatement pst = null;
+    ResultSet rs = null;
+  
+    public void cadastroProdutos() {
+        String sqlCadProd = "INSERT INTO tb_produtos (descricao_produtos, marca_produtos, preco_produtos, caracteristica_produtos, estoque_produtos) VALUES (?,?,?,?,?)";
+        try {
+            pst = conexao.prepareStatement(sqlCadProd);
+            pst.setString(1, txt_descProduto.getText());
+            pst.setString(2, txt_MarcaProduto.getText());
+            pst.setString(3, txt_PrecoProduto.getText());
+            pst.setString(4, txt_CaractProd.getText());
+            pst.setString(5,spin_Estoque.getValue().toString());
+            //executa a query sqlCadProd 
+            pst.executeUpdate();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
     public void LimparPainel() {
         txt_descProduto.setText("");
         txt_MarcaProduto.setText("");
@@ -24,19 +48,9 @@ public class CadastroProdutos extends javax.swing.JFrame {
         spin_Estoque.setValue(0);
         txt_CaractProd.setText("");
     }
-    String descProd = null;
-    String marcaProd = null;
-    String precoProd = null;
-    String caractProd = null;
-    String estoqueProd = null;
+   
 
-    public void RetornaValores() {
-        descProd = txt_descProduto.getText();
-        marcaProd = txt_MarcaProduto.getText();
-        precoProd = txt_PrecoProduto.getText();
-        caractProd = txt_CaractProd.getText();
-        return;
-    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -87,6 +101,11 @@ public class CadastroProdutos extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(13, 221, 186));
 
         btn_Cadastrar.setText("Cadastrar");
+        btn_Cadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_CadastrarActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         jLabel1.setText("Cadastrar Produtos");
@@ -130,18 +149,16 @@ public class CadastroProdutos extends javax.swing.JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
-                            .addGap(137, 137, 137))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(jPanel1Layout.createSequentialGroup()
                                     .addComponent(jLabel6)
                                     .addGap(18, 18, 18)
-                                    .addComponent(spin_Estoque, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addContainerGap()))
+                                    .addComponent(spin_Estoque, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(67, 67, 67))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(btn_Cadastrar)
                         .addGap(32, 32, 32))))
@@ -269,6 +286,10 @@ public class CadastroProdutos extends javax.swing.JFrame {
     private void btn_LimparPanelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_LimparPanelActionPerformed
         LimparPainel();
     }//GEN-LAST:event_btn_LimparPanelActionPerformed
+
+    private void btn_CadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CadastrarActionPerformed
+        cadastroProdutos();
+    }//GEN-LAST:event_btn_CadastrarActionPerformed
 
     /**
      * @param args the command line arguments
