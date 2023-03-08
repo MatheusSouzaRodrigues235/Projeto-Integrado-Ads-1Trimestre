@@ -140,14 +140,14 @@ public class PaginaInicial extends javax.swing.JFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel1)
                         .addComponent(jLabel3))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel2)
-                        .addComponent(jLabel4))
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel2)
                     .addComponent(jLabel5))
                 .addContainerGap())
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_financeiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_financeiroActionPerformed
@@ -155,7 +155,9 @@ public class PaginaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_financeiroActionPerformed
 
     private void btn_cadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cadastroActionPerformed
-        // TODO add your handling code here:
+        CadastroProdutos cad_Prod = new CadastroProdutos();
+        cad_Prod.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btn_cadastroActionPerformed
 
     private void btn_estoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_estoqueActionPerformed
@@ -167,9 +169,7 @@ public class PaginaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_sairActionPerformed
 
     private void btn_vendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_vendaActionPerformed
-        CadastroProdutos cad_Prod = new CadastroProdutos();
-        cad_Prod.setVisible(true);
-        this.dispose();
+        
     }//GEN-LAST:event_btn_vendaActionPerformed
 
     /**

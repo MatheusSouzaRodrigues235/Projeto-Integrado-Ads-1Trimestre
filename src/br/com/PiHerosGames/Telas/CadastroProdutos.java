@@ -36,7 +36,11 @@ public class CadastroProdutos extends javax.swing.JFrame {
             pst.setString(4, txt_CaractProd.getText());
             pst.setString(5,spin_Estoque.getValue().toString());
             //executa a query sqlCadProd 
-            pst.executeUpdate();
+            int insert =  pst.executeUpdate();
+            if(insert>0){
+               JOptionPane.showMessageDialog(null, "Usuário Cadastrado com sucesso!");
+               LimparPainel();
+            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -110,7 +114,7 @@ public class CadastroProdutos extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         jLabel1.setText("Cadastrar Produtos");
 
-        jLabel2.setText("Descrição do Produto:");
+        jLabel2.setText("Nome do Produto:");
 
         jLabel3.setText("Marca do Produto");
 
@@ -146,7 +150,7 @@ public class CadastroProdutos extends javax.swing.JFrame {
                             .addComponent(jLabel3)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(34, 34, 34)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -175,12 +179,12 @@ public class CadastroProdutos extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel6)
-                        .addComponent(spin_Estoque, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                        .addComponent(spin_Estoque, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(62, 62, 62)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel5)
@@ -209,6 +213,11 @@ public class CadastroProdutos extends javax.swing.JFrame {
         });
 
         btn_PesquisaProdutos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/PiHerosGames/Icones/Research.png"))); // NOI18N
+        btn_PesquisaProdutos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_PesquisaProdutosActionPerformed(evt);
+            }
+        });
 
         btn_LimparPanel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/PiHerosGames/Icones/Limpar.png"))); // NOI18N
         btn_LimparPanel.addActionListener(new java.awt.event.ActionListener() {
@@ -290,6 +299,12 @@ public class CadastroProdutos extends javax.swing.JFrame {
     private void btn_CadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CadastrarActionPerformed
         cadastroProdutos();
     }//GEN-LAST:event_btn_CadastrarActionPerformed
+
+    private void btn_PesquisaProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_PesquisaProdutosActionPerformed
+        ConsultarProdutos ConsultaProd = new ConsultarProdutos();
+        ConsultaProd.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btn_PesquisaProdutosActionPerformed
 
     /**
      * @param args the command line arguments
