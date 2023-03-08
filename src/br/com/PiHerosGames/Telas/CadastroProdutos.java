@@ -17,12 +17,25 @@ public class CadastroProdutos extends javax.swing.JFrame {
         initComponents();
     }
 
-    public void LimparPainel(){
+    public void LimparPainel() {
         txt_descProduto.setText("");
         txt_MarcaProduto.setText("");
         txt_PrecoProduto.setText("");
         spin_Estoque.setValue(0);
         txt_CaractProd.setText("");
+    }
+    String descProd = null;
+    String marcaProd = null;
+    String precoProd = null;
+    String caractProd = null;
+    String estoqueProd = null;
+
+    public void RetornaValores() {
+        descProd = txt_descProduto.getText();
+        marcaProd = txt_MarcaProduto.getText();
+        precoProd = txt_PrecoProduto.getText();
+        caractProd = txt_CaractProd.getText();
+        return;
     }
 
     /**
@@ -242,7 +255,7 @@ public class CadastroProdutos extends javax.swing.JFrame {
 
     private void fecharPainel(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_fecharPainel
         jPanel1.setVisible(false);
-        
+
     }//GEN-LAST:event_fecharPainel
 
     private void btn_panelCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_panelCadastrarActionPerformed
@@ -250,11 +263,11 @@ public class CadastroProdutos extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_panelCadastrarActionPerformed
 
     private void btn_FecharPanelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_FecharPanelActionPerformed
-       jPanel1.setVisible(false);
+        jPanel1.setVisible(false);
     }//GEN-LAST:event_btn_FecharPanelActionPerformed
 
     private void btn_LimparPanelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_LimparPanelActionPerformed
-      LimparPainel();
+        LimparPainel();
     }//GEN-LAST:event_btn_LimparPanelActionPerformed
 
     /**
