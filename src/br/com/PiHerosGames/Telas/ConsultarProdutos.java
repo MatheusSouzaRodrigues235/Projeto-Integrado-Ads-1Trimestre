@@ -22,6 +22,25 @@ public class ConsultarProdutos extends javax.swing.JFrame {
         initComponents();
         conexao = ModuloConexao.conector();
     }
+
+    // Método para Deletar produtos 
+    public void deletaProd() {
+        String deletProdSql = "DELETE FROM tb_produtos WHERE idtb_produtos = ?";
+        try {
+            pst = conexao.prepareStatement(deletProdSql);
+            pst.setString(1, txt_IdProd.getText());
+            //Executa a query deletProdSql
+            int deletProd = pst.executeUpdate();
+            if (deletProd > 0) {
+                JOptionPane.showMessageDialog(null, "Produto deletado com sucesso");
+                LimparPainel();
+            } else {
+                JOptionPane.showMessageDialog(null, "Erro ao deletar verifique os dados corretamente");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
     // Método para consultar produtos
 
     public void consultaProd() {
@@ -172,21 +191,27 @@ public class ConsultarProdutos extends javax.swing.JFrame {
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
                             .addComponent(jScrollPane2)
                             .addComponent(jScrollPane3)
-                            .addComponent(jScrollPane4)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(203, 203, 203)
-                        .addComponent(btn_Limpar)))
+                            .addComponent(jScrollPane4))
+                        .addGap(25, 25, 25))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btn_Limpar)
+                        .addGap(1, 1, 1)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(92, 92, 92)
+                        .addGap(39, 39, 39)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(53, 53, 53)
                                 .addComponent(jLabel6)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(btn_EditarProd)
-                                    .addComponent(jLabel7))
+                                    .addComponent(jLabel7)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(btn_DeletarProd)
+                                        .addGap(34, 34, 34)
+                                        .addComponent(btn_EditarProd)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
@@ -195,11 +220,7 @@ public class ConsultarProdutos extends javax.swing.JFrame {
                                     .addComponent(spin_EstoqueProd)))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt_CaractProd, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(btn_DeletarProd)
-                                .addGap(181, 181, 181)))))
+                        .addComponent(txt_CaractProd, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(7, 7, 7)
                 .addComponent(btn_Voltar)
                 .addGap(20, 20, 20))
@@ -239,11 +260,11 @@ public class ConsultarProdutos extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btn_ConsutaProd)
-                        .addGap(18, 18, 18)
-                        .addComponent(btn_DeletarProd))
+                        .addGap(74, 74, 74))
                     .addComponent(btn_EditarProd, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btn_Limpar, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btn_Voltar, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(btn_Voltar, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btn_DeletarProd, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(14, 14, 14))
         );
 
@@ -256,7 +277,11 @@ public class ConsultarProdutos extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_ConsutaProdActionPerformed
 
     private void btn_DeletarProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_DeletarProdActionPerformed
-        // TODO add your handling code here:
+        int deletar = JOptionPane.showConfirmDialog(null, " Tem certeza que deseja excluir o produto ?","Atenção",JOptionPane.YES_NO_OPTION);
+        if(deletar == JOptionPane.YES_OPTION){
+            deletaProd();
+        }
+        
     }//GEN-LAST:event_btn_DeletarProdActionPerformed
 
     private void btn_EditarProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_EditarProdActionPerformed
