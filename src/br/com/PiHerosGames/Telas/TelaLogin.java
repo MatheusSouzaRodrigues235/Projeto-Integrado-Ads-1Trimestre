@@ -30,6 +30,10 @@ public class TelaLogin extends javax.swing.JFrame {
             // Estrutura para verificar se existem dados
             if (rs.next()) {
                 PaginaInicial principal = new PaginaInicial();
+                // Pega nome do usuario
+                String perfil = rs.getString(2);
+                //Exibe nome do usuario
+                PaginaInicial.lbl_usuario.setText(perfil);
                 principal.setVisible(true);
                 this.dispose();
                 conexao.close();
