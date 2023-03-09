@@ -215,7 +215,9 @@ public class PaginaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_sairActionPerformed
 
     private void btn_vendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_vendaActionPerformed
-
+        TelaVendas vendas = new TelaVendas();
+        vendas.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btn_vendaActionPerformed
 
     private void exbirData(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_exbirData

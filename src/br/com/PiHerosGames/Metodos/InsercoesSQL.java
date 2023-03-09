@@ -5,7 +5,6 @@
 package br.com.PiHerosGames.Metodos;
 
 
-
 /**
  *
  * @author eders
@@ -13,4 +12,6 @@ package br.com.PiHerosGames.Metodos;
 public class InsercoesSQL {
 
     
+   
+
 }

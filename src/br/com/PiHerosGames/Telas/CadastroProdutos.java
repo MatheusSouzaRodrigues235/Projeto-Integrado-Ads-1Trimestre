@@ -4,6 +4,7 @@
  */
 package br.com.PiHerosGames.Telas;
 
+import br.com.PiHerosGames.Metodos.InsercoesSQL;
 import java.sql.*;
 import br.com.PiHerosGames.conexao.ModuloConexao;
 import javax.swing.JOptionPane;
@@ -27,7 +28,8 @@ public class CadastroProdutos extends javax.swing.JFrame {
     PreparedStatement pst = null;
     ResultSet rs = null;
 
-    public void cadastroProdutos() {
+     public void cadastroProdutos() {
+        
         String sqlCadProd = "INSERT INTO tb_produtos (descricao_produtos, marca_produtos, preco_produtos, caracteristica_produtos, estoque_produtos) VALUES (?,?,?,?,?)";
         try {
             pst = conexao.prepareStatement(sqlCadProd);
@@ -301,7 +303,8 @@ public class CadastroProdutos extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_LimparPanelActionPerformed
 
     private void btn_CadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CadastrarActionPerformed
-        cadastroProdutos();
+      cadastroProdutos();
+      
     }//GEN-LAST:event_btn_CadastrarActionPerformed
 
     private void btn_PesquisaProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_PesquisaProdutosActionPerformed
@@ -346,7 +349,7 @@ public class CadastroProdutos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_Cadastrar;
+    public javax.swing.JButton btn_Cadastrar;
     private javax.swing.JButton btn_FecharPanel;
     private javax.swing.JButton btn_LimparPanel;
     private javax.swing.JButton btn_PesquisaProdutos;
@@ -363,10 +366,10 @@ public class CadastroProdutos extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JSpinner spin_Estoque;
-    private javax.swing.JTextPane txt_CaractProd;
-    private javax.swing.JTextPane txt_MarcaProduto;
-    private javax.swing.JTextPane txt_PrecoProduto;
-    private javax.swing.JTextPane txt_descProduto;
+    public javax.swing.JSpinner spin_Estoque;
+    public javax.swing.JTextPane txt_CaractProd;
+    public javax.swing.JTextPane txt_MarcaProduto;
+    public javax.swing.JTextPane txt_PrecoProduto;
+    public javax.swing.JTextPane txt_descProduto;
     // End of variables declaration//GEN-END:variables
 }
