@@ -41,8 +41,34 @@ public class ConsultarProdutos extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e);
         }
     }
-    // Método para consultar produtos
 
+    // Método para editar produtos 
+    public void editaProd() {
+        String editaProdSql = "UPDATE tb_produtos SET descricao_produtos= ?, marca_produtos= ?, preco_produtos= ?, caracteristica_produtos= ?, estoque_produtos= ? WHERE idtb_produtos= ?";
+        try {
+            pst = conexao.prepareStatement(editaProdSql);
+            pst.setString(1, txt_NomeProd.getText());
+            pst.setString(2, txt_MarcaProd.getText());
+            pst.setString(3, txt_PrecoProd.getText());
+            pst.setString(4, txt_CaractProd.getText());
+            pst.setString(5, spin_EstoqueProd.getValue().toString());
+            pst.setString( 6, txt_IdProd.getText());
+             if ((txt_IdProd.getText().isEmpty())||(txt_NomeProd.getText().isEmpty()) || (txt_MarcaProd.getText().isEmpty()) || (txt_PrecoProd.getText().isEmpty()) || (txt_CaractProd.getText().isEmpty())) {
+                JOptionPane.showMessageDialog(null, "Preencha todos os campos para cadastrar !");
+            } else {
+                //executa a query sqlCadProd 
+                int update = pst.executeUpdate();
+                if (update > 0) {
+                    JOptionPane.showMessageDialog(null, "Produto Editado com sucesso!");
+                    LimparPainel();
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+
+    // Método para consultar produtos
     public void consultaProd() {
         String consultaProdSql = "SELECT * FROM tb_produtos WHERE descricao_produtos = ?";
         try {
@@ -277,15 +303,18 @@ public class ConsultarProdutos extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_ConsutaProdActionPerformed
 
     private void btn_DeletarProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_DeletarProdActionPerformed
-        int deletar = JOptionPane.showConfirmDialog(null, " Tem certeza que deseja excluir o produto ?","Atenção",JOptionPane.YES_NO_OPTION);
-        if(deletar == JOptionPane.YES_OPTION){
+        int deletar = JOptionPane.showConfirmDialog(null, " Tem certeza que deseja excluir o produto ?", "Atenção", JOptionPane.YES_NO_OPTION);
+        if (deletar == JOptionPane.YES_OPTION) {
             deletaProd();
         }
-        
+
     }//GEN-LAST:event_btn_DeletarProdActionPerformed
 
     private void btn_EditarProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_EditarProdActionPerformed
-        // TODO add your handling code here:
+       int deletar = JOptionPane.showConfirmDialog(null, " Tem certeza que deseja Editar o produto ?", "Atenção", JOptionPane.YES_NO_OPTION);
+        if (deletar == JOptionPane.YES_OPTION) {
+            editaProd();
+        }
     }//GEN-LAST:event_btn_EditarProdActionPerformed
 
     private void btn_LimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_LimparActionPerformed

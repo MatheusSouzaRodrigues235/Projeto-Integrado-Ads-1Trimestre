@@ -3,10 +3,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package br.com.PiHerosGames.Telas;
+
 import java.sql.*;
 import br.com.PiHerosGames.conexao.ModuloConexao;
 import javax.swing.JOptionPane;
-    /**
+
+/**
  *
  * @author eders
  */
@@ -18,14 +20,13 @@ public class CadastroProdutos extends javax.swing.JFrame {
     public CadastroProdutos() {
         initComponents();
         conexao = ModuloConexao.conector();
-       
-       
+
     }
-    
+
     Connection conexao = null;
     PreparedStatement pst = null;
     ResultSet rs = null;
-  
+
     public void cadastroProdutos() {
         String sqlCadProd = "INSERT INTO tb_produtos (descricao_produtos, marca_produtos, preco_produtos, caracteristica_produtos, estoque_produtos) VALUES (?,?,?,?,?)";
         try {
@@ -34,17 +35,23 @@ public class CadastroProdutos extends javax.swing.JFrame {
             pst.setString(2, txt_MarcaProduto.getText());
             pst.setString(3, txt_PrecoProduto.getText());
             pst.setString(4, txt_CaractProd.getText());
-            pst.setString(5,spin_Estoque.getValue().toString());
-            //executa a query sqlCadProd 
-            int insert =  pst.executeUpdate();
-            if(insert>0){
-               JOptionPane.showMessageDialog(null, "Usuário Cadastrado com sucesso!");
-               LimparPainel();
+            pst.setString(5, spin_Estoque.getValue().toString());
+            if ((txt_descProduto.getText().isEmpty()) || (txt_MarcaProduto.getText().isEmpty()) || (txt_PrecoProduto.getText().isEmpty()) || (txt_CaractProd.getText().isEmpty())) {
+                JOptionPane.showMessageDialog(null, "Preencha todos os campos para cadastrar !");
+            } else {
+                //executa a query sqlCadProd 
+                int insert = pst.executeUpdate();
+                if (insert > 0) {
+                    JOptionPane.showMessageDialog(null, "Produto Cadastrado com sucesso!");
+                    LimparPainel();
+                }
             }
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
     }
+
     public void LimparPainel() {
         txt_descProduto.setText("");
         txt_MarcaProduto.setText("");
@@ -52,9 +59,6 @@ public class CadastroProdutos extends javax.swing.JFrame {
         spin_Estoque.setValue(0);
         txt_CaractProd.setText("");
     }
-   
-
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
