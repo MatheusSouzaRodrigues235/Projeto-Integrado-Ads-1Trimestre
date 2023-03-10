@@ -4,10 +4,11 @@
  */
 package br.com.PiHerosGames.Telas;
 
-import br.com.PiHerosGames.Metodos.InsercoesSQL;
+import br.com.PiHerosGames.Metodos.RealizaVenda;
 import java.sql.*;
 import br.com.PiHerosGames.conexao.ModuloConexao;
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author eders
@@ -17,31 +18,72 @@ public class TelaVendas extends javax.swing.JFrame {
     /**
      * Creates new form TelaVendas
      */
- 
     Connection conexao = null;
     PreparedStatement pst = null;
     ResultSet rs = null;
-    
+
     public TelaVendas() {
         initComponents();
         conexao = ModuloConexao.conector();
     }
 
-        public void consultarProd(){
-            String sqlConsulta = "SELECT * FROM tb_produtos WHERE idtb_produtos =?";
-            try {
-                pst = conexao.prepareStatement(sqlConsulta);
-                pst.setString(1, txt_codigoProd.getText());
-               rs = pst.executeQuery();
-                if(rs.next()){
-                    String nome = rs.getString(2);
-                    cbx_nomeProd.addItem(nome);
-                    
-                }
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, e);
+    public void limparCampos() {
+        txt_codigoProd.setText(null);
+        txt_qtdProd.setText(null);
+        cbx_nomeProd.removeAllItems();
+    }
+
+    public void getCampos() {
+       String codigoProd = txt_codigoProd.getText();
+       String nomeProd = cbx_nomeProd.getSelectedItem().toString();
+       String qtdProd = txt_qtdProd.getText();
+       // Adiciona dados na tabela
+       Object[] dadosProd = new Object[]{
+           codigoProd,
+           nomeProd,
+           qtdProd
+       };
+       
+       String[] teste = {txt_codigoProd.getText(),cbx_nomeProd.getSelectedItem().toString(),txt_qtdProd.getText()};
+       // Realiza consulta para verificar o valor do item selecionado:
+       String sqlConsultaPreco = "SELECT preco_produtos FROM tb_produtos WHERE idtb_produtos=? ";
+        try {
+            pst = conexao.prepareStatement(sqlConsultaPreco);
+            pst.setString(1, txt_codigoProd.getText());
+            rs = pst.executeQuery();
+            if(rs.next()){
+                String precoProd = rs.getString(4);
+                
+                double precoCons = Double.parseDouble(precoProd);
+                double qtdCons = Double.parseDouble(qtdProd);
+                
+                double valMultiplicacao = precoCons * qtdCons;
+                String valTotal = String.valueOf(valMultiplicacao);
+                
+                txt_valTotal.setText(valTotal);
             }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
         }
+       
+    }
+   
+    public void consultarProd() {
+        String sqlConsulta = "SELECT * FROM tb_produtos WHERE idtb_produtos =?";
+        try {
+            pst = conexao.prepareStatement(sqlConsulta);
+            pst.setString(1, txt_codigoProd.getText());
+            rs = pst.executeQuery();
+            if (rs.next()) {
+                String nome = rs.getString(2);
+                cbx_nomeProd.addItem(nome);
+
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -70,6 +112,7 @@ public class TelaVendas extends javax.swing.JFrame {
         btn_salvar = new javax.swing.JButton();
         btn_novo = new javax.swing.JButton();
         btn_cancelar = new javax.swing.JButton();
+        lblTeste = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -82,6 +125,11 @@ public class TelaVendas extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(txt_codigoProd);
 
+        txt_qtdProd.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txt_qtdProdFocusLost(evt);
+            }
+        });
         jScrollPane4.setViewportView(txt_qtdProd);
 
         jLabel4.setText("Nome do produto");
@@ -90,21 +138,26 @@ public class TelaVendas extends javax.swing.JFrame {
 
         btn_Adicionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/PiHerosGames/Icones/plus.png"))); // NOI18N
         btn_Adicionar.setText("Adicionar");
+        btn_Adicionar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TEste(evt);
+            }
+        });
 
         tbl_ProdutoAdd.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Nome Prod", "Marca Prod", "Preço Prod", "Estoque Prod"
+                "Nome Prod", "Preço Prod", "Quantidade Prod"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -120,8 +173,20 @@ public class TelaVendas extends javax.swing.JFrame {
         btn_salvar.setText("Salvar");
 
         btn_novo.setText("Novo");
+        btn_novo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_novoActionPerformed(evt);
+            }
+        });
 
         btn_cancelar.setText("Cancelar");
+        btn_cancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_cancelarActionPerformed(evt);
+            }
+        });
+
+        lblTeste.setText("jLabel2");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -133,7 +198,8 @@ public class TelaVendas extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(6, 515, Short.MAX_VALUE)
+                                .addComponent(lblTeste)
+                                .addGap(63, 63, 63)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel1)
                                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -147,25 +213,25 @@ public class TelaVendas extends javax.swing.JFrame {
                         .addGap(41, 41, 41))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane2)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 672, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel3)
                                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
-                                        .addComponent(cbx_nomeProd, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(56, 56, 56)
-                                        .addComponent(jLabel4)))
+                                        .addComponent(jLabel4))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(cbx_nomeProd, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel5)
                                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(12, 12, 12)
+                                .addGap(24, 24, 24)
                                 .addComponent(btn_Adicionar)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap(16, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -193,7 +259,9 @@ public class TelaVendas extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                .addComponent(jLabel1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(lblTeste))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(51, 51, 51)
@@ -222,8 +290,26 @@ public class TelaVendas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txt_codigoProdFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_codigoProdFocusLost
-       consultarProd();
+        consultarProd();
     }//GEN-LAST:event_txt_codigoProdFocusLost
+
+    private void btn_novoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_novoActionPerformed
+        limparCampos();
+    }//GEN-LAST:event_btn_novoActionPerformed
+
+    private void btn_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelarActionPerformed
+        PaginaInicial principal = new PaginaInicial();
+        principal.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btn_cancelarActionPerformed
+
+    private void txt_qtdProdFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_qtdProdFocusLost
+
+    }//GEN-LAST:event_txt_qtdProdFocusLost
+
+    private void TEste(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TEste
+        getCampos();
+    }//GEN-LAST:event_TEste
 
     /**
      * @param args the command line arguments
@@ -265,7 +351,7 @@ public class TelaVendas extends javax.swing.JFrame {
     private javax.swing.JButton btn_cancelar;
     private javax.swing.JButton btn_novo;
     private javax.swing.JButton btn_salvar;
-    private javax.swing.JComboBox<String> cbx_nomeProd;
+    public javax.swing.JComboBox<String> cbx_nomeProd;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -276,9 +362,10 @@ public class TelaVendas extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
+    public javax.swing.JLabel lblTeste;
     private javax.swing.JTable tbl_ProdutoAdd;
-    private javax.swing.JTextPane txt_codigoProd;
-    private javax.swing.JTextPane txt_qtdProd;
+    public javax.swing.JTextPane txt_codigoProd;
+    public javax.swing.JTextPane txt_qtdProd;
     private javax.swing.JTextPane txt_valTotal;
     // End of variables declaration//GEN-END:variables
 }
