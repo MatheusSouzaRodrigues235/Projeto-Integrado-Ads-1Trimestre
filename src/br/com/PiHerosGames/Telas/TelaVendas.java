@@ -4,7 +4,6 @@
  */
 package br.com.PiHerosGames.Telas;
 
-import br.com.PiHerosGames.Metodos.RealizaVenda;
 import java.sql.*;
 import br.com.PiHerosGames.conexao.ModuloConexao;
 import javax.swing.JOptionPane;

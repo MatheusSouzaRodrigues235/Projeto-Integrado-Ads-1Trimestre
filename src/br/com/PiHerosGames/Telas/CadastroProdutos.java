@@ -4,10 +4,12 @@
  */
 package br.com.PiHerosGames.Telas;
 
-import br.com.PiHerosGames.Metodos.InsercoesSQL;
+import br.com.PiHerosGames.Dao.daoProdutos;
 import java.sql.*;
 import br.com.PiHerosGames.conexao.ModuloConexao;
+import controller.ControllerProdutos;
 import javax.swing.JOptionPane;
+import model.modelProdutos;
 
 /**
  *
@@ -15,6 +17,9 @@ import javax.swing.JOptionPane;
  */
 public class CadastroProdutos extends javax.swing.JFrame {
 
+    modelProdutos ModelProdutos = new modelProdutos();
+    ControllerProdutos controllerProdutos = new ControllerProdutos();
+    daoProdutos DaoProdutos = new daoProdutos();
     /**
      * Creates new form CadastroProdutos
      */
@@ -27,32 +32,6 @@ public class CadastroProdutos extends javax.swing.JFrame {
     Connection conexao = null;
     PreparedStatement pst = null;
     ResultSet rs = null;
-
-     public void cadastroProdutos() {
-        
-        String sqlCadProd = "INSERT INTO tb_produtos (descricao_produtos, marca_produtos, preco_produtos, caracteristica_produtos, estoque_produtos) VALUES (?,?,?,?,?)";
-        try {
-            pst = conexao.prepareStatement(sqlCadProd);
-            pst.setString(1, txt_descProduto.getText());
-            pst.setString(2, txt_MarcaProduto.getText());
-            pst.setString(3, txt_PrecoProduto.getText());
-            pst.setString(4, txt_CaractProd.getText());
-            pst.setString(5, spin_Estoque.getValue().toString());
-            if ((txt_descProduto.getText().isEmpty()) || (txt_MarcaProduto.getText().isEmpty()) || (txt_PrecoProduto.getText().isEmpty()) || (txt_CaractProd.getText().isEmpty())) {
-                JOptionPane.showMessageDialog(null, "Preencha todos os campos para cadastrar !");
-            } else {
-                //executa a query sqlCadProd 
-                int insert = pst.executeUpdate();
-                if (insert > 0) {
-                    JOptionPane.showMessageDialog(null, "Produto Cadastrado com sucesso!");
-                    LimparPainel();
-                }
-            }
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
-    }
 
     public void LimparPainel() {
         txt_descProduto.setText("");
@@ -304,8 +283,20 @@ public class CadastroProdutos extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_LimparPanelActionPerformed
 
     private void btn_CadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CadastrarActionPerformed
-      cadastroProdutos();
-      
+        ModelProdutos.setNome_produto(this.txt_descProduto.getText());
+        ModelProdutos.setMarca_produto(this.txt_MarcaProduto.getText());
+        ModelProdutos.setPreco_produto(Double.parseDouble(this.txt_PrecoProduto.getText()));
+        ModelProdutos.setCaracteristica_produto(this.txt_CaractProd.getText());
+        ModelProdutos.setEstoque_produto(Integer.parseInt(this.spin_Estoque.getValue().toString()));
+
+       
+        if (controllerProdutos.salvarProdutoController(ModelProdutos) > 0) {
+            JOptionPane.showMessageDialog(null, "Produto Cadastrado com sucesso!");
+            LimparPainel();
+        }else{
+            JOptionPane.showMessageDialog(null, "Erro ao cadastrar !");
+        }
+
     }//GEN-LAST:event_btn_CadastrarActionPerformed
 
     private void btn_PesquisaProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_PesquisaProdutosActionPerformed

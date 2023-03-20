@@ -6,7 +6,9 @@ package br.com.PiHerosGames.Telas;
 
 import java.sql.*;
 import br.com.PiHerosGames.conexao.ModuloConexao;
+import controller.ControllerProdutos;
 import javax.swing.JOptionPane;
+import model.modelProdutos;
 
 /**
  *
@@ -18,80 +20,22 @@ public class ConsultarProdutos extends javax.swing.JFrame {
     PreparedStatement pst = null;
     ResultSet rs = null;
 
+    modelProdutos ModelProdutos = new modelProdutos();
+    ControllerProdutos controllerProdutos = new ControllerProdutos();
+
     public ConsultarProdutos() {
         initComponents();
         conexao = ModuloConexao.conector();
     }
 
-    // Método para Deletar produtos 
-    public void deletaProd() {
-        String deletProdSql = "DELETE FROM tb_produtos WHERE idtb_produtos = ?";
-        try {
-            pst = conexao.prepareStatement(deletProdSql);
-            pst.setString(1, txt_IdProd.getText());
-            //Executa a query deletProdSql
-            int deletProd = pst.executeUpdate();
-            if (deletProd > 0) {
-                JOptionPane.showMessageDialog(null, "Produto deletado com sucesso");
-                LimparPainel();
-            } else {
-                JOptionPane.showMessageDialog(null, "Erro ao deletar verifique os dados corretamente");
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
+    public void getValuesModelProduto(modelProdutos pModelProdutos) {
+        txt_IdProd.setText(Integer.toString(pModelProdutos.getId_produto()));
+        txt_NomeProd.setText(pModelProdutos.getNome_produto());
+        txt_MarcaProd.setText(pModelProdutos.getMarca_produto());
+        txt_PrecoProd.setText(Double.toString(pModelProdutos.getPreco_produto()));
+        txt_CaractProd.setText(pModelProdutos.getCaracteristica_produto());
+        spin_EstoqueProd.setValue(pModelProdutos.getEstoque_produto());
     }
-
-    // Método para editar produtos 
-    public void editaProd() {
-        String editaProdSql = "UPDATE tb_produtos SET descricao_produtos= ?, marca_produtos= ?, preco_produtos= ?, caracteristica_produtos= ?, estoque_produtos= ? WHERE idtb_produtos= ?";
-        try {
-            pst = conexao.prepareStatement(editaProdSql);
-            pst.setString(1, txt_NomeProd.getText());
-            pst.setString(2, txt_MarcaProd.getText());
-            pst.setString(3, txt_PrecoProd.getText());
-            pst.setString(4, txt_CaractProd.getText());
-            pst.setString(5, spin_EstoqueProd.getValue().toString());
-            pst.setString( 6, txt_IdProd.getText());
-             if ((txt_IdProd.getText().isEmpty())||(txt_NomeProd.getText().isEmpty()) || (txt_MarcaProd.getText().isEmpty()) || (txt_PrecoProd.getText().isEmpty()) || (txt_CaractProd.getText().isEmpty())) {
-                JOptionPane.showMessageDialog(null, "Preencha todos os campos para cadastrar !");
-            } else {
-                //executa a query sqlCadProd 
-                int update = pst.executeUpdate();
-                if (update > 0) {
-                    JOptionPane.showMessageDialog(null, "Produto Editado com sucesso!");
-                    LimparPainel();
-                }
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
-    }
-
-    // Método para consultar produtos
-    public void consultaProd() {
-        String consultaProdSql = "SELECT * FROM tb_produtos WHERE descricao_produtos = ?";
-        try {
-            pst = conexao.prepareStatement(consultaProdSql);
-            pst.setString(1, txt_NomeProd.getText());
-            //Executa a query consultaProdSql
-            rs = pst.executeQuery();
-            if (rs.next()) {
-                txt_IdProd.setText(rs.getString(1));
-                txt_NomeProd.setText(rs.getString(2));
-                txt_MarcaProd.setText(rs.getString(3));
-                txt_PrecoProd.setText(rs.getString(4));
-                txt_CaractProd.setText(rs.getString(5));
-                spin_EstoqueProd.setValue(rs.getInt(6));
-            } else {
-                JOptionPane.showMessageDialog(null, "Produto Não Cadastrado !");
-                LimparPainel();
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
-    }
-    //Método para limpar campos
 
     public void LimparPainel() {
         txt_IdProd.setText(null);
@@ -299,21 +243,40 @@ public class ConsultarProdutos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_ConsutaProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ConsutaProdActionPerformed
-        consultaProd();
+        ModelProdutos.setNome_produto(txt_NomeProd.getText());
+
+        controllerProdutos.consultarProdutosController(ModelProdutos);
+        getValuesModelProduto(ModelProdutos);
+
     }//GEN-LAST:event_btn_ConsutaProdActionPerformed
 
     private void btn_DeletarProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_DeletarProdActionPerformed
         int deletar = JOptionPane.showConfirmDialog(null, " Tem certeza que deseja excluir o produto ?", "Atenção", JOptionPane.YES_NO_OPTION);
+        String idProds = txt_IdProd.getText();
+        ModelProdutos.setId_produto(Integer.parseInt(idProds));
         if (deletar == JOptionPane.YES_OPTION) {
-            deletaProd();
+            controllerProdutos.deletarProdutoController(ModelProdutos);
+            LimparPainel();
         }
 
     }//GEN-LAST:event_btn_DeletarProdActionPerformed
 
     private void btn_EditarProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_EditarProdActionPerformed
-       int deletar = JOptionPane.showConfirmDialog(null, " Tem certeza que deseja Editar o produto ?", "Atenção", JOptionPane.YES_NO_OPTION);
-        if (deletar == JOptionPane.YES_OPTION) {
-            editaProd();
+        int editar = JOptionPane.showConfirmDialog(null, " Tem certeza que deseja Editar o produto ?", "Atenção", JOptionPane.YES_NO_OPTION);
+        ModelProdutos.setId_produto(Integer.parseInt(this.txt_IdProd.getText()));
+        ModelProdutos.setNome_produto(this.txt_NomeProd.getText());
+        ModelProdutos.setMarca_produto(this.txt_MarcaProd.getText());
+        ModelProdutos.setPreco_produto(Double.parseDouble(this.txt_PrecoProd.getText()));
+        ModelProdutos.setCaracteristica_produto(this.txt_CaractProd.getText());
+        ModelProdutos.setEstoque_produto(Integer.parseInt(this.spin_EstoqueProd.getValue().toString()));
+
+        if (editar == JOptionPane.YES_OPTION) {
+            if ((txt_IdProd.getText().isEmpty()) || (txt_NomeProd.getText().isEmpty()) || (txt_MarcaProd.getText().isEmpty()) || (txt_PrecoProd.getText().isEmpty()) || (txt_CaractProd.getText().isEmpty())) {
+                JOptionPane.showMessageDialog(null, "Preencha todos os campos para cadastrar !");
+            } else {
+                controllerProdutos.editarProdutoController(ModelProdutos);
+                LimparPainel();
+            }
         }
     }//GEN-LAST:event_btn_EditarProdActionPerformed
 

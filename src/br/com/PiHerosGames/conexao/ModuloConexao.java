@@ -5,6 +5,7 @@
 package br.com.PiHerosGames.conexao;
 
 import java.sql.*;
+import javax.swing.JOptionPane;
 
 public class ModuloConexao {
 
@@ -21,7 +22,7 @@ public class ModuloConexao {
         // Estabelesce a conexão com o banco 
         try {
             Class.forName(driver);
-            conexao = DriverManager.getConnection(url,user,password);
+            conexao = DriverManager.getConnection(url, user, password);
             return conexao;
         } catch (Exception e) {
             System.out.println("erro!");
@@ -29,4 +30,5 @@ public class ModuloConexao {
             return null;
         }
     }
+
 }

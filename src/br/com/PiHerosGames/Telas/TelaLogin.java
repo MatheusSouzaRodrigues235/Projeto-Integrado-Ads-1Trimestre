@@ -176,7 +176,6 @@ public class TelaLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_SenhaActionPerformed
 
     private void btn_LogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_LogarActionPerformed
-        //Chama o método Logar() para realizar as verificações
         Logar();
     }//GEN-LAST:event_btn_LogarActionPerformed
 
@@ -219,7 +218,7 @@ public class TelaLogin extends javax.swing.JFrame {
     private javax.swing.JButton btn_Logar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JLabel lblStatus;
+    public javax.swing.JLabel lblStatus;
     private javax.swing.JLabel lblUsu;
     private javax.swing.JLabel lbl_Pass;
     private javax.swing.JPasswordField txt_Senha;
