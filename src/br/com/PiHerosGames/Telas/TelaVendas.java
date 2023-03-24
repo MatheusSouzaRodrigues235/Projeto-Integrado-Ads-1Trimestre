@@ -4,10 +4,14 @@
  */
 package br.com.PiHerosGames.Telas;
 
+
 import java.sql.*;
 import br.com.PiHerosGames.conexao.ModuloConexao;
 import javax.swing.JOptionPane;
+import controller.ControllerVendas;
+import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
+
 
 /**
  *
@@ -22,6 +26,8 @@ public class TelaVendas extends javax.swing.JFrame {
     PreparedStatement pst = null;
     ResultSet rs = null;
 
+
+
     public TelaVendas() {
         initComponents();
         conexao = ModuloConexao.conector();
@@ -34,22 +40,7 @@ public class TelaVendas extends javax.swing.JFrame {
         txt_valProdD.setText(null);
     }
 
-    public void getValPRod() {
-        //Pega o valor do produto
-        String SqlValProd = "SELECT * FROM tb_produtos WHERE idtb_produtos =?";
-        try {
-            pst = conexao.prepareStatement(SqlValProd);
-            pst.setString(1, txt_codigoProd.getText());
-            rs = pst.executeQuery();
 
-            if (rs.next()) {
-                String valProdI = rs.getString(4);
-                txt_valProdD.setText(valProdI);
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
-    }
 
     public void getCampos() {
 
@@ -63,6 +54,7 @@ public class TelaVendas extends javax.swing.JFrame {
 
         // Adiciona dados na tabela
         DefaultTableModel tabela = (DefaultTableModel) tbl_ProdutoAdd.getModel();
+
         Object[] dadosProd = new Object[]{
             nomeProd,
             ValorPROD,
@@ -70,6 +62,7 @@ public class TelaVendas extends javax.swing.JFrame {
         };
         tabela.addRow(dadosProd);
 
+        
     }
 
     public void ValorTotal() {
@@ -93,22 +86,7 @@ public class TelaVendas extends javax.swing.JFrame {
         }
         txt_valTotal.setText(String.valueOf(soma));
     }
-
-    public void consultarProd() {
-        String sqlConsulta = "SELECT * FROM tb_produtos WHERE idtb_produtos =?";
-        try {
-            pst = conexao.prepareStatement(sqlConsulta);
-            pst.setString(1, txt_codigoProd.getText());
-            rs = pst.executeQuery();
-            if (rs.next()) {
-                String nome = rs.getString(2);
-                cbx_nomeProd.addItem(nome);
-
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
-    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -141,6 +119,9 @@ public class TelaVendas extends javax.swing.JFrame {
         jScrollPane5 = new javax.swing.JScrollPane();
         txt_valProdD = new javax.swing.JTextPane();
         jLabel2 = new javax.swing.JLabel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        txt_teste = new javax.swing.JTextPane();
+        txt_getValores = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -161,9 +142,9 @@ public class TelaVendas extends javax.swing.JFrame {
 
         btn_Adicionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/PiHerosGames/Icones/plus.png"))); // NOI18N
         btn_Adicionar.setText("Adicionar");
-        btn_Adicionar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                TEste(evt);
+        btn_Adicionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_AdicionarActionPerformed(evt);
             }
         });
 
@@ -190,6 +171,11 @@ public class TelaVendas extends javax.swing.JFrame {
         jScrollPane3.setViewportView(txt_valTotal);
 
         btn_salvar.setText("Salvar");
+        btn_salvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_salvarActionPerformed(evt);
+            }
+        });
 
         btn_novo.setText("Novo");
         btn_novo.addActionListener(new java.awt.event.ActionListener() {
@@ -209,6 +195,15 @@ public class TelaVendas extends javax.swing.JFrame {
 
         jLabel2.setText("Valor Produto");
 
+        jScrollPane6.setViewportView(txt_teste);
+
+        txt_getValores.setText("jButton1");
+        txt_getValores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_getValoresActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -223,23 +218,25 @@ public class TelaVendas extends javax.swing.JFrame {
                         .addComponent(btn_novo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel2)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGap(6, 6, 6)
+                                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txt_getValores, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(6, 6, 6)
-                                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(136, 136, 136)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel1)
                                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(340, 340, 340)
+                                .addGap(223, 223, 223)
                                 .addComponent(btn_salvar)))
                         .addGap(41, 41, 41))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 672, Short.MAX_VALUE)
+                            .addComponent(jScrollPane2)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel3)
@@ -257,7 +254,11 @@ public class TelaVendas extends javax.swing.JFrame {
                                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(24, 24, 24)
                                 .addComponent(btn_Adicionar)))
-                        .addContainerGap(16, Short.MAX_VALUE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(251, 251, 251))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -295,11 +296,14 @@ public class TelaVendas extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(51, 51, 51)
+                .addGap(11, 11, 11)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_salvar)
                     .addComponent(btn_novo)
-                    .addComponent(btn_cancelar))
+                    .addComponent(btn_cancelar)
+                    .addComponent(txt_getValores))
                 .addGap(14, 14, 14))
         );
 
@@ -321,8 +325,7 @@ public class TelaVendas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txt_codigoProdFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_codigoProdFocusLost
-        consultarProd();
-        getValPRod();
+
     }//GEN-LAST:event_txt_codigoProdFocusLost
 
     private void btn_novoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_novoActionPerformed
@@ -335,12 +338,23 @@ public class TelaVendas extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btn_cancelarActionPerformed
 
-    private void TEste(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TEste
-        getCampos();
+    private void btn_salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salvarActionPerformed
+
+        
+
+
+    }//GEN-LAST:event_btn_salvarActionPerformed
+
+    private void btn_AdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_AdicionarActionPerformed
+       getCampos();
         limparCampos();
         ValorTotal();
         ValorCompra();
-    }//GEN-LAST:event_TEste
+    }//GEN-LAST:event_btn_AdicionarActionPerformed
+
+    private void txt_getValoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_getValoresActionPerformed
+      
+    }//GEN-LAST:event_txt_getValoresActionPerformed
 
     /**
      * @param args the command line arguments
@@ -382,7 +396,7 @@ public class TelaVendas extends javax.swing.JFrame {
     private javax.swing.JButton btn_cancelar;
     private javax.swing.JButton btn_novo;
     private javax.swing.JButton btn_salvar;
-    public javax.swing.JComboBox<String> cbx_nomeProd;
+    public static javax.swing.JComboBox<String> cbx_nomeProd;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -394,10 +408,13 @@ public class TelaVendas extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable tbl_ProdutoAdd;
     public javax.swing.JTextPane txt_codigoProd;
-    public javax.swing.JTextPane txt_qtdProd;
+    private javax.swing.JButton txt_getValores;
+    public static javax.swing.JTextPane txt_qtdProd;
+    private javax.swing.JTextPane txt_teste;
     private javax.swing.JTextPane txt_valProdD;
     private javax.swing.JTextPane txt_valTotal;
     // End of variables declaration//GEN-END:variables

@@ -1,54 +1,59 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package controller;
 
-import br.com.PiHerosGames.Dao.daoProdutos;
-import javax.swing.JOptionPane;
-import model.modelProdutos;
+import model.ModelProdutos;
+import br.com.PiHerosGames.Dao.DAOProdutos;
+import java.util.ArrayList;
 
 /**
- *
- * @author eders
- */
+*
+* @author Matheus
+*/
 public class ControllerProdutos {
-    private daoProdutos DaoProdutos = new daoProdutos();
-    
-    public int salvarProdutoController(modelProdutos pModelProdutos){
-        try {
-            DaoProdutos.salvarProdutosDAO(pModelProdutos);
-            JOptionPane.showMessageDialog(null, "Produto deletado com sucesso");
-            return 1;
-        } catch (Exception e) {
-        
-        return 0;
-        }
+
+    private DAOProdutos daoProdutos = new DAOProdutos();
+
+    /**
+    * grava Produtos
+    * @param pModelProdutos
+    * @return int
+    */
+    public int salvarProdutosController(ModelProdutos pModelProdutos){
+        return this.daoProdutos.salvarProdutosDAO(pModelProdutos);
     }
-    public void consultarProdutosController(modelProdutos pModelProdutos){
-        try {
-            DaoProdutos.consultarProdutosDao(pModelProdutos);
-            
-        } catch (Exception e) {
-            
-        }
+
+    /**
+    * recupera Produtos
+    * @param pIdtb_vendas
+    * @return ModelProdutos
+    */
+    public ModelProdutos getProdutosController(int pIdtb_vendas){
+        return this.daoProdutos.getProdutosDAO(pIdtb_vendas);
     }
-    public int editarProdutoController(modelProdutos pModelProdutos){
-        try {
-            DaoProdutos.editarProdutosDao(pModelProdutos);
-            JOptionPane.showMessageDialog(null, "Produto editado com sucesso");
-            return 1;
-        } catch (Exception e) {
-            return 0;
-        }
+
+    /**
+    * recupera uma lista deProdutos
+    * @param pIdtb_vendas
+    * @return ArrayList
+    */
+    public ArrayList<ModelProdutos> getListaProdutosController(){
+        return this.daoProdutos.getListaProdutosDAO();
     }
-    public int deletarProdutoController(modelProdutos pModeProdutos){
-        try {
-            DaoProdutos.deletarProdutosDao(pModeProdutos);
-            JOptionPane.showMessageDialog(null, "Produto deletado com sucesso");
-            return 1;
-        } catch (Exception e) {
-            return 0;
-        }
+
+    /**
+    * atualiza Produtos
+    * @param pModelProdutos
+    * @return boolean
+    */
+    public boolean atualizarProdutosController(ModelProdutos pModelProdutos){
+        return this.daoProdutos.atualizarProdutosDAO(pModelProdutos);
+    }
+
+    /**
+    * exclui Produtos
+    * @param pIdtb_vendas
+    * @return boolean
+    */
+    public boolean excluirProdutosController(int pIdtb_vendas){
+        return this.daoProdutos.excluirProdutosDAO(pIdtb_vendas);
     }
 }
