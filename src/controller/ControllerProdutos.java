@@ -29,6 +29,15 @@ public class ControllerProdutos {
     public ModelProdutos getProdutosController(int pIdtb_vendas){
         return this.daoProdutos.getProdutosDAO(pIdtb_vendas);
     }
+    
+    /**
+    * recupera Produtos
+    * @param pNomeProduto
+    * @return ModelProdutos
+    */
+    public ModelProdutos getProdutosController(String pNomeProduto){
+        return this.daoProdutos.getProdutosDAO(pNomeProduto);
+    }
 
     /**
     * recupera uma lista deProdutos

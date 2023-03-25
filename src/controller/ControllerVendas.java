@@ -14,11 +14,11 @@ public class ControllerVendas {
 
     /**
     * grava Vendas
-    * @param pModelVendas
+    * @param plistaVendas
     * @return int
     */
-    public int salvarVendasController(ModelVendas pModelVendas){
-        return this.daoVendas.salvarVendasDAO(pModelVendas);
+    public boolean salvarDiversasVendasDao(ArrayList<ModelVendas> plistaVendas){
+        return this.daoVendas.salvarDiversasVendasDao(plistaVendas);
     }
 
     /**

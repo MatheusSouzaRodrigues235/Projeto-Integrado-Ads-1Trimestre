@@ -4,14 +4,13 @@
  */
 package br.com.PiHerosGames.Telas;
 
-
-import java.sql.*;
-import br.com.PiHerosGames.conexao.ModuloConexao;
+import controller.ControllerProdutos;
 import javax.swing.JOptionPane;
 import controller.ControllerVendas;
-import java.util.Vector;
+import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
-
+import model.ModelProdutos;
+import model.ModelVendas;
 
 /**
  *
@@ -19,18 +18,14 @@ import javax.swing.table.DefaultTableModel;
  */
 public class TelaVendas extends javax.swing.JFrame {
 
-    /**
-     * Creates new form TelaVendas
-     */
-    Connection conexao = null;
-    PreparedStatement pst = null;
-    ResultSet rs = null;
-
-
+    ModelProdutos modelProdutos = new ModelProdutos();
+    ModelVendas modelVendas = new ModelVendas();
+    ArrayList<ModelVendas> listaVendas = new ArrayList<>();
+    ControllerVendas controllerVendas =  new ControllerVendas();
+    ControllerProdutos controllerProdutos = new ControllerProdutos();
 
     public TelaVendas() {
         initComponents();
-        conexao = ModuloConexao.conector();
     }
 
     public void limparCampos() {
@@ -39,8 +34,6 @@ public class TelaVendas extends javax.swing.JFrame {
         cbx_nomeProd.removeAllItems();
         txt_valProdD.setText(null);
     }
-
-
 
     public void getCampos() {
 
@@ -62,17 +55,16 @@ public class TelaVendas extends javax.swing.JFrame {
         };
         tabela.addRow(dadosProd);
 
-        
     }
 
     public void ValorTotal() {
         for (int i = 0; i < tbl_ProdutoAdd.getRowCount(); i++) {
 
             double valorProd;
-            valorProd = (double) tbl_ProdutoAdd.getValueAt(i, 1);
-            int valorQtd = (int) tbl_ProdutoAdd.getValueAt(i, 2);
+            valorProd = (double) tbl_ProdutoAdd.getValueAt(i, 2);
+            int valorQtd = (int) tbl_ProdutoAdd.getValueAt(i, 3);
 
-            tbl_ProdutoAdd.setValueAt(valorProd * valorQtd, i, 3);
+            tbl_ProdutoAdd.setValueAt(valorProd * valorQtd, i, 4);
 
         }
     }
@@ -81,12 +73,11 @@ public class TelaVendas extends javax.swing.JFrame {
         double soma = 0, valor;
         int cont = tbl_ProdutoAdd.getRowCount();
         for (int i = 0; i < cont; i++) {
-            valor = (double) tbl_ProdutoAdd.getValueAt(i, 3);
+            valor = (double) tbl_ProdutoAdd.getValueAt(i,4);
             soma = soma + valor;
         }
         txt_valTotal.setText(String.valueOf(soma));
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -119,8 +110,6 @@ public class TelaVendas extends javax.swing.JFrame {
         jScrollPane5 = new javax.swing.JScrollPane();
         txt_valProdD = new javax.swing.JTextPane();
         jLabel2 = new javax.swing.JLabel();
-        jScrollPane6 = new javax.swing.JScrollPane();
-        txt_teste = new javax.swing.JTextPane();
         txt_getValores = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -133,6 +122,17 @@ public class TelaVendas extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(txt_codigoProd);
+
+        cbx_nomeProd.setEditable(true);
+        cbx_nomeProd.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+                cbx_nomeProdPopupMenuWillBecomeInvisible(evt);
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+        });
 
         jScrollPane4.setViewportView(txt_qtdProd);
 
@@ -153,11 +153,11 @@ public class TelaVendas extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nome Prod", "Preço Prod", "Quantidade Prod", "Valor Total"
+                "id Prod", "Nome Prod", "Preço Prod", "Quantidade Prod", "Valor Total"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -194,8 +194,6 @@ public class TelaVendas extends javax.swing.JFrame {
         jScrollPane5.setViewportView(txt_valProdD);
 
         jLabel2.setText("Valor Produto");
-
-        jScrollPane6.setViewportView(txt_teste);
 
         txt_getValores.setText("jButton1");
         txt_getValores.addActionListener(new java.awt.event.ActionListener() {
@@ -255,10 +253,6 @@ public class TelaVendas extends javax.swing.JFrame {
                                 .addGap(24, 24, 24)
                                 .addComponent(btn_Adicionar)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(251, 251, 251))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -296,9 +290,7 @@ public class TelaVendas extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(11, 11, 11)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(51, 51, 51)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_salvar)
                     .addComponent(btn_novo)
@@ -325,7 +317,8 @@ public class TelaVendas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txt_codigoProdFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_codigoProdFocusLost
-
+        modelProdutos = controllerProdutos.getProdutosController(Integer.parseInt(this.txt_codigoProd.getText()));
+        cbx_nomeProd.setSelectedItem(modelProdutos.getNome_produto());
     }//GEN-LAST:event_txt_codigoProdFocusLost
 
     private void btn_novoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_novoActionPerformed
@@ -339,22 +332,59 @@ public class TelaVendas extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_cancelarActionPerformed
 
     private void btn_salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salvarActionPerformed
-
-        
-
-
+        listaVendas = new ArrayList<>();
+        modelVendas = new ModelVendas();
+        int cont = tbl_ProdutoAdd.getRowCount();
+        for (int i = 0; i < cont; i++) {
+            modelVendas.setQuantidade_vendas((int) tbl_ProdutoAdd.getValueAt(i, 3));
+            modelVendas.setTotal_vendas(Double.parseDouble(this.txt_valTotal.getText()));
+            modelVendas.setIdtb_produtos((int) tbl_ProdutoAdd.getValueAt(i, 0));
+            
+            listaVendas.add(modelVendas);
+        }
+        System.out.println(listaVendas);
+        if(controllerVendas.salvarDiversasVendasDao(listaVendas)){
+             JOptionPane.showMessageDialog(null, "Venda Cadastrada com sucesso!");
+        }else{
+            JOptionPane.showMessageDialog(null, "Erro ao cadastrar venda!");
+        }
+        limparCampos();
+        tbl_ProdutoAdd.removeAll();
     }//GEN-LAST:event_btn_salvarActionPerformed
 
     private void btn_AdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_AdicionarActionPerformed
-       getCampos();
-        limparCampos();
+        modelProdutos = controllerProdutos.getProdutosController(Integer.parseInt(this.txt_codigoProd.getText()));
+        this.txt_valProdD.setText(Double.toString(modelProdutos.getPreco_produtos()));
+        String codProd = txt_codigoProd.getText();
+        String nomeProd = cbx_nomeProd.getSelectedItem().toString();
+        String qtdProd = txt_qtdProd.getText();
+        String valProd = txt_valProdD.getText();
+
+        double ValorPROD = Double.parseDouble(valProd);
+        int qUantProd = Integer.parseInt(qtdProd);
+        int CodProd = Integer.parseInt(codProd);
+        DefaultTableModel tabela = (DefaultTableModel) tbl_ProdutoAdd.getModel();
+        Object[] dadosProd = new Object[]{
+            CodProd,
+            nomeProd,
+            ValorPROD,
+            qUantProd
+        };
+        tabela.addRow(dadosProd);
         ValorTotal();
         ValorCompra();
     }//GEN-LAST:event_btn_AdicionarActionPerformed
 
     private void txt_getValoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_getValoresActionPerformed
-      
+
     }//GEN-LAST:event_txt_getValoresActionPerformed
+
+    private void cbx_nomeProdPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_cbx_nomeProdPopupMenuWillBecomeInvisible
+        if (cbx_nomeProd.isVisible()) {
+            modelProdutos = controllerProdutos.getProdutosController(cbx_nomeProd.getSelectedItem().toString());
+            this.txt_codigoProd.setText(String.valueOf(modelProdutos.getIdtb_vendas()));
+        }
+    }//GEN-LAST:event_cbx_nomeProdPopupMenuWillBecomeInvisible
 
     /**
      * @param args the command line arguments
@@ -396,7 +426,7 @@ public class TelaVendas extends javax.swing.JFrame {
     private javax.swing.JButton btn_cancelar;
     private javax.swing.JButton btn_novo;
     private javax.swing.JButton btn_salvar;
-    public static javax.swing.JComboBox<String> cbx_nomeProd;
+    private javax.swing.JComboBox<String> cbx_nomeProd;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -408,13 +438,11 @@ public class TelaVendas extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable tbl_ProdutoAdd;
-    public javax.swing.JTextPane txt_codigoProd;
+    private javax.swing.JTextPane txt_codigoProd;
     private javax.swing.JButton txt_getValores;
     public static javax.swing.JTextPane txt_qtdProd;
-    private javax.swing.JTextPane txt_teste;
     private javax.swing.JTextPane txt_valProdD;
     private javax.swing.JTextPane txt_valTotal;
     // End of variables declaration//GEN-END:variables

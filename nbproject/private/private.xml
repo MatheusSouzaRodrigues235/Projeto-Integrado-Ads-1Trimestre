@@ -3,9 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/ADS%20UNIVAP/1%20Trimestre/Projeto%20integrado/NetBeansProjects/P.I.Hero´sGames/src/model/ModelProdutos.java</file>
-            <file>file:/D:/ADS%20UNIVAP/1%20Trimestre/Projeto%20integrado/NetBeansProjects/P.I.Hero´sGames/src/controller/ControllerProdutos.java</file>
+            <file>file:/D:/ADS%20UNIVAP/1%20Trimestre/Projeto%20integrado/NetBeansProjects/P.I.Hero´sGames/src/br/com/PiHerosGames/Dao/DAOVendas.java</file>
             <file>file:/D:/ADS%20UNIVAP/1%20Trimestre/Projeto%20integrado/NetBeansProjects/P.I.Hero´sGames/src/br/com/PiHerosGames/Telas/TelaConsultaProdutos.java</file>
+            <file>file:/D:/ADS%20UNIVAP/1%20Trimestre/Projeto%20integrado/NetBeansProjects/P.I.Hero´sGames/src/br/com/PiHerosGames/Telas/TelaVendas.java</file>
+            <file>file:/D:/ADS%20UNIVAP/1%20Trimestre/Projeto%20integrado/NetBeansProjects/P.I.Hero´sGames/src/model/ModelVendas.java</file>
+            <file>file:/D:/ADS%20UNIVAP/1%20Trimestre/Projeto%20integrado/NetBeansProjects/P.I.Hero´sGames/src/br/com/PiHerosGames/Dao/DAOProdutos.java</file>
         </group>
     </open-files>
 </project-private>
