@@ -1,6 +1,7 @@
 package br.com.PiHerosGames.Dao;
 
 import model.ModelVendas;
+import model.ModelProdutos;
 
 import br.com.PiHerosGames.conexao.ModuloConexao;
 import br.com.PiHerosGames.conexao.ConexaoMySql;
@@ -103,6 +104,30 @@ public class DAOVendas extends ConexaoMySql {
         return modelVendas;
     }
 
+    public ArrayList<ModelVendas> getListaVendasLeftJoin(){
+        String sql = "SELECT idtb_vendas, quantidade_vendas,total_vendas, descricao_produtos, preco_produtos,pk_idtbProdutos FROM tb_vendas LEFT JOIN tb_produtos on pk_idtbProdutos = idtb_produtos";
+        ArrayList<ModelVendas> listamodelVendas = new ArrayList();
+        ModelVendas modelVendas = new ModelVendas();
+        conn = new ModuloConexao().conector();
+        try {
+            pstm = conn.prepareStatement(sql);
+            rs = pstm.executeQuery();
+            while(rs.next()){
+                modelVendas = new ModelVendas();
+                modelVendas.setIdtb_vendas(rs.getInt(1));
+                modelVendas.setQuantidade_vendas(rs.getInt(2));
+                modelVendas.setTotal_vendas(rs.getDouble(3));
+                modelVendas.setNome_produtos(rs.getString(4));
+                modelVendas.setPreco_produtos(rs.getDouble(5));
+                listamodelVendas.add(modelVendas);
+            }
+            pstm.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listamodelVendas;
+    }
+     
     /**
      * recupera uma lista de Vendas
      *

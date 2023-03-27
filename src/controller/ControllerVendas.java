@@ -21,6 +21,9 @@ public class ControllerVendas {
         return this.daoVendas.salvarDiversasVendasDao(plistaVendas);
     }
 
+     public ArrayList<ModelVendas> getListaVendasLeftJoinController(){
+         return this.daoVendas.getListaVendasLeftJoin();
+     }
     /**
     * recupera Vendas
     * @param pIdtb_vendas

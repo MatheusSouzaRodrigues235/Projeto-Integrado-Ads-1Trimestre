@@ -110,7 +110,6 @@ public class TelaVendas extends javax.swing.JFrame {
         jScrollPane5 = new javax.swing.JScrollPane();
         txt_valProdD = new javax.swing.JTextPane();
         jLabel2 = new javax.swing.JLabel();
-        txt_getValores = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -195,13 +194,6 @@ public class TelaVendas extends javax.swing.JFrame {
 
         jLabel2.setText("Valor Produto");
 
-        txt_getValores.setText("jButton1");
-        txt_getValores.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_getValoresActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -216,12 +208,10 @@ public class TelaVendas extends javax.swing.JFrame {
                         .addComponent(btn_novo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel2)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGap(6, 6, 6)
-                                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(txt_getValores, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addComponent(jLabel2)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(136, 136, 136)
@@ -294,8 +284,7 @@ public class TelaVendas extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_salvar)
                     .addComponent(btn_novo)
-                    .addComponent(btn_cancelar)
-                    .addComponent(txt_getValores))
+                    .addComponent(btn_cancelar))
                 .addGap(14, 14, 14))
         );
 
@@ -375,10 +364,6 @@ public class TelaVendas extends javax.swing.JFrame {
         ValorCompra();
     }//GEN-LAST:event_btn_AdicionarActionPerformed
 
-    private void txt_getValoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_getValoresActionPerformed
-
-    }//GEN-LAST:event_txt_getValoresActionPerformed
-
     private void cbx_nomeProdPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_cbx_nomeProdPopupMenuWillBecomeInvisible
         if (cbx_nomeProd.isVisible()) {
             modelProdutos = controllerProdutos.getProdutosController(cbx_nomeProd.getSelectedItem().toString());
@@ -441,7 +426,6 @@ public class TelaVendas extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable tbl_ProdutoAdd;
     private javax.swing.JTextPane txt_codigoProd;
-    private javax.swing.JButton txt_getValores;
     public static javax.swing.JTextPane txt_qtdProd;
     private javax.swing.JTextPane txt_valProdD;
     private javax.swing.JTextPane txt_valTotal;

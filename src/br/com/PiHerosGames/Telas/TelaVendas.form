@@ -62,14 +62,11 @@
                               <Component id="btn_novo" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                                      <Group type="102" attributes="0">
-                                          <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                                          <Component id="jScrollPane5" min="-2" pref="111" max="-2" attributes="0"/>
-                                      </Group>
+                                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                                      <Component id="jScrollPane5" min="-2" pref="111" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="txt_getValores" alignment="1" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
@@ -172,7 +169,6 @@
                           <Component id="btn_salvar" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btn_novo" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btn_cancelar" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txt_getValores" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                   </Group>
@@ -349,14 +345,6 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Valor Produto"/>
               </Properties>
-            </Component>
-            <Component class="javax.swing.JButton" name="txt_getValores">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="jButton1"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_getValoresActionPerformed"/>
-              </Events>
             </Component>
           </SubComponents>
         </Container>

@@ -208,7 +208,9 @@ public class PaginaInicial extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_financeiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_financeiroActionPerformed
-        // TODO add your handling code here:
+        TelaConsultaVendas vendasConsulta = new TelaConsultaVendas();
+        vendasConsulta.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btn_financeiroActionPerformed
 
     private void btn_cadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cadastroActionPerformed

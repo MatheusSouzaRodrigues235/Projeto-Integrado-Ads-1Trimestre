@@ -9,7 +9,8 @@ public class ModelVendas {
     private int quantidade_vendas;
     private double total_vendas;
     private int idtb_produtos;
-
+    private String nome_produtos;
+    private double preco_produtos;
     /**
     * Construtor
     */
@@ -74,5 +75,33 @@ public class ModelVendas {
     @Override
     public String toString(){
         return "ModelVendas {" + "::idtb_vendas = " + this.idtb_vendas + "::quantidade_vendas = " + this.quantidade_vendas + "::total_vendas = " + this.total_vendas + "::idtb_produtos = " + this.idtb_produtos +  "}";
+    }
+
+    /**
+     * @return the nome_produtos
+     */
+    public String getNome_produtos() {
+        return nome_produtos;
+    }
+
+    /**
+     * @param nome_produtos the nome_produtos to set
+     */
+    public void setNome_produtos(String nome_produtos) {
+        this.nome_produtos = nome_produtos;
+    }
+
+    /**
+     * @return the preco_produtos
+     */
+    public double getPreco_produtos() {
+        return preco_produtos;
+    }
+
+    /**
+     * @param preco_produtos the preco_produtos to set
+     */
+    public void setPreco_produtos(double preco_produtos) {
+        this.preco_produtos = preco_produtos;
     }
 }
