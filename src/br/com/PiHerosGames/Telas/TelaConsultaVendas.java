@@ -8,18 +8,19 @@ import java.util.ArrayList;
 import model.ModelVendas;
 import model.ModelProdutos;
 import controller.ControllerVendas;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import controller.ControllerVendas;
 
 /**
  *
  * @author eders
  */
 public class TelaConsultaVendas extends javax.swing.JFrame {
+
     ModelVendas modelVendas = new ModelVendas();
-    ModelProdutos modelProdutos = new ModelProdutos();
     ArrayList<ModelVendas> listaVendas = new ArrayList<>();
     ControllerVendas controllerVendas = new ControllerVendas();
-    
 
     /**
      * Creates new form TelaConsultaVendas
@@ -27,23 +28,29 @@ public class TelaConsultaVendas extends javax.swing.JFrame {
     public TelaConsultaVendas() {
         initComponents();
         carregarVendas();
+        btn_Atualizar.setEnabled(false);
     }
-
-    private void carregarVendas(){
+     public void getValuesModelProduto(ModelVendas pModelVendas) {
+        this.txt_idVenda.setText(Integer.toString(pModelVendas.getIdtb_vendas()));
+        this.txt_qtdVenda.setText(Integer.toString(pModelVendas.getQuantidade_vendas()));
+        this.txt_valorVenda.setText(Double.toString(pModelVendas.getTotal_vendas()));
+        this.txt_idProd.setText(Integer.toString(pModelVendas.getIdtb_produtos()));
+    }
+    private void carregarVendas() {
         listaVendas = controllerVendas.getListaVendasLeftJoinController();
         DefaultTableModel modelo = (DefaultTableModel) tbl_Vendas.getModel();
         modelo.setNumRows(0);
         int cont = listaVendas.size();
         for (int i = 0; i < cont; i++) {
             modelo.addRow(new Object[]{
-               listaVendas.get(i).getIdtb_vendas(),
-               listaVendas.get(i).getQuantidade_vendas(),
-               listaVendas.get(i).getTotal_vendas(),
-               listaVendas.get(i).getNome_produtos(),
-               listaVendas.get(i).getPreco_produtos(),
-            });
+                listaVendas.get(i).getIdtb_vendas(),
+                listaVendas.get(i).getQuantidade_vendas(),
+                listaVendas.get(i).getTotal_vendas(),
+                listaVendas.get(i).getNome_produtos(),
+                listaVendas.get(i).getPreco_produtos(),});
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -55,24 +62,28 @@ public class TelaConsultaVendas extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextPane1 = new javax.swing.JTextPane();
-        jButton1 = new javax.swing.JButton();
+        txt_idVenda = new javax.swing.JTextPane();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbl_Vendas = new javax.swing.JTable();
-        jButton2 = new javax.swing.JButton();
+        btn_sair = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        txt_qtdVenda = new javax.swing.JTextPane();
+        jLabel2 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        txt_valorVenda = new javax.swing.JTextPane();
+        jLabel3 = new javax.swing.JLabel();
+        btn_editar = new javax.swing.JButton();
+        btn_excluir = new javax.swing.JButton();
+        btn_Atualizar = new javax.swing.JButton();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        txt_idProd = new javax.swing.JTextPane();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Código da Venda :");
 
-        jScrollPane1.setViewportView(jTextPane1);
-
-        jButton1.setText("Procurar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        jScrollPane1.setViewportView(txt_idVenda);
 
         tbl_Vendas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -92,66 +103,173 @@ public class TelaConsultaVendas extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(tbl_Vendas);
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/PiHerosGames/Icones/sair.png"))); // NOI18N
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btn_sair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/PiHerosGames/Icones/sair.png"))); // NOI18N
+        btn_sair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btn_sairActionPerformed(evt);
             }
         });
+
+        jScrollPane3.setViewportView(txt_qtdVenda);
+
+        jLabel2.setText("Quantidade :");
+
+        jScrollPane4.setViewportView(txt_valorVenda);
+
+        jLabel3.setText("Valor :");
+
+        btn_editar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/PiHerosGames/Icones/cadastro.png"))); // NOI18N
+        btn_editar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_editarActionPerformed(evt);
+            }
+        });
+
+        btn_excluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/PiHerosGames/Icones/Close.png"))); // NOI18N
+        btn_excluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_excluirActionPerformed(evt);
+            }
+        });
+
+        btn_Atualizar.setText("Atualizar");
+        btn_Atualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_AtualizarActionPerformed(evt);
+            }
+        });
+
+        jScrollPane7.setViewportView(txt_idProd);
+
+        jLabel6.setText("Código Produto :");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))
+                        .addGap(60, 60, 60)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_Atualizar)
+                        .addGap(24, 24, 24))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton2)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 277, Short.MAX_VALUE)
-                        .addComponent(jButton1)
-                        .addGap(57, 57, 57))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane2)
-                        .addContainerGap())))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(6, 6, 6)
+                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel1))
+                                .addGap(111, 111, 111)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btn_sair)
+                                .addGap(107, 107, 107)
+                                .addComponent(btn_editar)
+                                .addGap(90, 90, 90)
+                                .addComponent(btn_excluir)))
+                        .addContainerGap(66, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton1)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addGap(15, 15, 15)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btn_Atualizar)
+                        .addGap(7, 7, 7))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btn_sair)
+                    .addComponent(btn_editar)
+                    .addComponent(btn_excluir))
+                .addContainerGap())
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btn_sairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_sairActionPerformed
+        PaginaInicial inicio = new PaginaInicial();
+        inicio.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btn_sairActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-      PaginaInicial inicio = new PaginaInicial();
-      inicio.setVisible(true);
-      this.dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void btn_editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editarActionPerformed
+        int linhaSelect = tbl_Vendas.getSelectedRow();
+        int codigoProdSelect = (int) tbl_Vendas.getValueAt(linhaSelect, 0);
+        btn_Atualizar.setEnabled(true);
+        try {
+            modelVendas = controllerVendas.getVendasController(codigoProdSelect);
+            getValuesModelProduto(modelVendas);
+        } catch (Exception e) {
+        }
+        
+    }//GEN-LAST:event_btn_editarActionPerformed
+
+    private void btn_excluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_excluirActionPerformed
+        int linha = tbl_Vendas.getSelectedRow();
+        int pIdtb_vendas = (int) tbl_Vendas.getValueAt(linha, 0);
+        int deletar = JOptionPane.showConfirmDialog(null, " Tem certeza que deseja excluir o produto ?", "Atenção", JOptionPane.YES_NO_OPTION);
+
+        if (deletar == JOptionPane.YES_OPTION) {
+            if (controllerVendas.excluirVendasController(pIdtb_vendas)) {
+                JOptionPane.showMessageDialog(null, "Produto Deletado com sucesso!");
+                this.carregarVendas();
+            } else {
+                JOptionPane.showMessageDialog(null, "Erro ao Deletar !");
+            }
+
+        }
+    }//GEN-LAST:event_btn_excluirActionPerformed
+
+    private void btn_AtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_AtualizarActionPerformed
+       int editar = JOptionPane.showConfirmDialog(null, " Tem certeza que deseja Editar o produto ?", "Atenção", JOptionPane.YES_NO_OPTION);
+        modelVendas.setIdtb_vendas(Integer.parseInt(this.txt_idVenda.getText()));
+        modelVendas.setQuantidade_vendas(Integer.parseInt(this.txt_qtdVenda.getText()));
+        modelVendas.setTotal_vendas(Double.parseDouble(this.txt_valorVenda.getText()));
+        modelVendas.setIdtb_produtos(Integer.parseInt(this.txt_idProd.getText()));
+         if(editar == JOptionPane.YES_OPTION){
+            if(controllerVendas.atualizarVendasController(modelVendas)){
+                JOptionPane.showMessageDialog(null, "Produto Atualizado com sucesso!");
+                this.carregarVendas();
+            }else{
+                JOptionPane.showMessageDialog(null, "Erro ao Atualizar !");
+            }
+        }
+    }//GEN-LAST:event_btn_AtualizarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -189,12 +307,23 @@ public class TelaConsultaVendas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btn_Atualizar;
+    private javax.swing.JButton btn_editar;
+    private javax.swing.JButton btn_excluir;
+    private javax.swing.JButton btn_sair;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextPane jTextPane1;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JTable tbl_Vendas;
+    private javax.swing.JTextPane txt_idProd;
+    private javax.swing.JTextPane txt_idVenda;
+    private javax.swing.JTextPane txt_qtdVenda;
+    private javax.swing.JTextPane txt_valorVenda;
     // End of variables declaration//GEN-END:variables
 }

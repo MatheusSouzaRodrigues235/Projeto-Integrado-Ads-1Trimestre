@@ -79,14 +79,14 @@ public class DAOVendas extends ConexaoMySql {
             this.conectar();
             this.executarSQL(
                     "SELECT "
-                    + "pk_idtb_vendas,"
+                    + "idtb_vendas,"
                     + "quantidade_vendas,"
                     + "total_vendas,"
-                    + "fk_idtb_produtos"
+                    + "pk_idtbProdutos"
                     + " FROM"
                     + " tb_vendas"
                     + " WHERE"
-                    + " pk_idtb_vendas = '" + pIdtb_vendas + "'"
+                    + " idtb_vendas = '" + pIdtb_vendas + "'"
                     + ";"
             );
 
@@ -176,12 +176,12 @@ public class DAOVendas extends ConexaoMySql {
             this.conectar();
             return this.executarUpdateDeleteSQL(
                     "UPDATE tb_vendas SET "
-                    + "pk_idtb_vendas = '" + pModelVendas.getIdtb_vendas() + "',"
+                    + "idtb_vendas = '" + pModelVendas.getIdtb_vendas() + "',"
                     + "quantidade_vendas = '" + pModelVendas.getQuantidade_vendas() + "',"
                     + "total_vendas = '" + pModelVendas.getTotal_vendas() + "',"
-                    + "fk_idtb_produtos = '" + pModelVendas.getIdtb_produtos() + "'"
+                    + "pk_idtbProdutos = '" + pModelVendas.getIdtb_produtos() + "'"
                     + " WHERE "
-                    + "pk_idtb_vendas = '" + pModelVendas.getIdtb_vendas() + "'"
+                    + "idtb_vendas = '" + pModelVendas.getIdtb_vendas() + "'"
                     + ";"
             );
         } catch (Exception e) {
@@ -204,7 +204,7 @@ public class DAOVendas extends ConexaoMySql {
             return this.executarUpdateDeleteSQL(
                     "DELETE FROM tb_vendas "
                     + " WHERE "
-                    + "pk_idtb_vendas = '" + pIdtb_vendas + "'"
+                    + "idtb_vendas = '" + pIdtb_vendas + "'"
                     + ";"
             );
         } catch (Exception e) {
